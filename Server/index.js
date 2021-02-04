@@ -1,3 +1,3 @@
-const app = require('../server.js');
+const app = require('../server2.js');
 
 app.listen(3001);
