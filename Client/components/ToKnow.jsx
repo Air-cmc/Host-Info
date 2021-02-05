@@ -16,7 +16,7 @@ const ToKnow = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    axios.get(`http://54.67.25.138:3001/toKnow/${id}`)
+    axios.get(`http://localhost:3001/toKnow/${id}`)
       .then(({ data }) => {
         setToKnow(data);
       })

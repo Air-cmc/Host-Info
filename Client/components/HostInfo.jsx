@@ -22,7 +22,7 @@ const HostInfo = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    axios.get(`http://54.67.25.138:3001/hostInfo/${id}`)
+    axios.get(`http://localhost:3001/hostInfo/${id}`)
       .then(({ data }) => {
         setHost(data);
       })
@@ -60,7 +60,7 @@ const HostInfo = () => {
         topic: msgTopic,
         message: msgBody,
       };
-      axios.put(`http://54.67.25.138:3001/email/${_id}`, body)
+      axios.put(`http://locahost:3001/email/${_id}`, body)
         .then((res) => {
           console.log(res);
           resetState();

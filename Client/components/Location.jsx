@@ -10,7 +10,7 @@ const Location = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    axios.get(`http://54.67.25.138:3001/location/${id}`)
+    axios.get(`http://localhost:3001/location/${id}`)
       .then(({ data }) => {
         setLocation(data);
       })
