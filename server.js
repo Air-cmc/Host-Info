@@ -42,14 +42,4 @@ app.get('/toKnow/:id', async (req, res) => {
   }
 });
 
-app.put('/email/:id', async (req, res) => {
-  try {
-    const result = await Hosts.findByIdAndUpdate(req.params.id, { $push: { messages: req.body } })
-      .exec();
-    res.status(202).send(result);
-  } catch (err) {
-    res.status(404).send(err);
-  }
-});
-
 module.exports = app;

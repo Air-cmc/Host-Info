@@ -27,10 +27,10 @@ const HostInfo = () => {
         setHost(data);
       })
       .catch((err) => console.log(err));
-  });
+  }, []);
 
   const {
-    name, desc, photo, joinDate, verified, reviews, response, _id,
+    hostname, hostbio, photo, joindate, verified, reviews, response,
   } = host;
 
   const toggleDesc = (e) => {
@@ -60,7 +60,7 @@ const HostInfo = () => {
         topic: msgTopic,
         message: msgBody,
       };
-      axios.put(`http://locahost:3001/email/${_id}`, body)
+      axios.put(`http://locahost:3001/email/${id}`, body)
         .then((res) => {
           console.log(res);
           resetState();
@@ -72,17 +72,17 @@ const HostInfo = () => {
     }
   };
 
-  return !host.name ? <div />
+  return !host.hostname ? <div />
     : (
       <div>
         <div id='host-bar'>
           <img src={photo} alt='' id='host-img' />
           <div id='host-bar-info' style={{ display: 'inline-block' }}>
             <h3 id='host-name'>
-              {`Hosted by ${name.split(' ')[0]}`}
+              {`Hosted by ${hostname.split(' ')[0]}`}
             </h3>
             <div id='host-join'>
-              {`Joined in ${Moment(new Date(joinDate)).format('MMMM YYYY')}`}
+              {`Joined in ${Moment(new Date(joindate)).format('MMMM YYYY')}`}
             </div>
           </div>
         </div>
@@ -101,19 +101,19 @@ const HostInfo = () => {
             </div>
             <br />
             <div id='host-desc'>
-              {showMore && desc}
-              {!showMore && desc.split(' ').slice(0, 25).join(' ')}
+              {showMore && hostbio}
+              {!showMore && hostbio.split(' ').slice(0, 25).join(' ')}
               {!showMore && '...  '}
               {!showMore && <a href='#' onClick={toggleDesc}>read more</a>}
             </div>
           </div>
           <div id='host-contact'>
             <div>
-              {`Response rate: ${response.rate}%`}
+              {`Response rate: ${response[0]}%`}
             </div>
             <br />
             <div>
-              {`Response time: ${response.time}`}
+              {`Response time: ${response[1]}`}
             </div>
             <br />
             <button type='button' onClick={() => setModal(true)}>Contact host</button>
@@ -133,7 +133,7 @@ const HostInfo = () => {
             animation
           >
             <Modal.Header true>
-              <Modal.Title>{`Contact ${name.split(' ')[0]}!`}</Modal.Title>
+              <Modal.Title>{`Contact ${hostname.split(' ')[0]}!`}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <Form noValidate validated={valid} onSubmit={submitMessage}>

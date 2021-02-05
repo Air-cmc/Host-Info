@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -21,9 +22,9 @@ const ToKnow = () => {
         setToKnow(data);
       })
       .catch((err) => console.log(err));
-  });
+  }, []);
 
-  const { rules, health, cancelPolicy } = toKnow;
+  const { rules, health, cancelpolicy } = toKnow;
   const healthTitle = 'Health & safety';
 
   const openModal = (e, cb) => {
@@ -40,7 +41,7 @@ const ToKnow = () => {
         <div id='toKnow-grid'>
           <div>
             <div className='Know-subtitle'>House rules</div>
-            <Rules rules={rules.house} />
+            <Rules rules={rules} />
             <a href='#' onClick={(e) => openModal(e, setRules)}>
               Show more
               <ChevronRightIcon />
@@ -48,7 +49,7 @@ const ToKnow = () => {
           </div>
           <div>
             <div className='Know-subtitle'>{healthTitle}</div>
-            <Health health={health.safety} />
+            <Health health={health} />
             <a href='#' onClick={(e) => openModal(e, setSafety)}>
               Show more
               <ChevronRightIcon />
@@ -56,7 +57,7 @@ const ToKnow = () => {
           </div>
           <div>
             <div className='Know-subtitle'>Cancellation policy</div>
-            {cancelPolicy.map((line) => <div className='rule' key={line}>{line}</div>)}
+            <div className='rule' key={cancelpolicy}>{cancelpolicy}</div>
             <a href='#' onClick={(e) => openModal(e, setCancel)}>
               More details
               <ChevronRightIcon />
@@ -66,8 +67,8 @@ const ToKnow = () => {
         <br />
         <hr />
         <ToKnowModal whatToKnow={rules} show={showRules} close={() => setRules(false)} />
-        <ToKnowModal whatToKnow={health} show={showSafety} close={() => setSafety(false)} />
-        <ToKnowModal whatToKnow={cancelPolicy} show={showCancel} close={() => setCancel(false)} />
+        <ToKnowModal whatToKnow={{ safety: health }} show={showSafety} close={() => setSafety(false)} />
+        <ToKnowModal whatToKnow={[cancelpolicy]} show={showCancel} close={() => setCancel(false)} />
       </div>
     );
 };

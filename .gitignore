@@ -1,2 +1,6 @@
 node_modules
 Coverage
+hosts.csv
+locations.csv
+properties.csv
+toknow.csv
