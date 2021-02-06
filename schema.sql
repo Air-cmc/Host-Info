@@ -9,37 +9,47 @@ CREATE DATABASE hostinfo;
 
 
 CREATE TABLE IF NOT EXISTS hosts (
-  hostid SERIAL PRIMARY KEY,
+  hostsid BIGINT PRIMARY KEY,
   hostname VARCHAR,
   verified BOOLEAN,
   photo VARCHAR,
   joindate VARCHAR,
   hostbio VARCHAR,
   reviews INTEGER,
-  contact JSON,
-  response JSON,
-  property INTEGER
+  contact VARCHAR,
+  response VARCHAR
 
 );
 
 
 CREATE TABLE IF NOT EXISTS locations (
-  locationsid SERIAL PRIMARY KEY,
+  locationsid BIGINT PRIMARY KEY,
   city VARCHAR,
   citystate VARCHAR,
   country VARCHAR,
-  locdesc VARCHAR,
-  property INTEGER
+  locdesc VARCHAR
 );
 
 CREATE TABLE IF NOT EXISTS toknow (
-  toknowid SERIAL PRIMARY KEY,
+  toknowsid BIGINT PRIMARY KEY,
   knowname VARCHAR,
-  rules JSON,
-  health JSON,
-  cancelpolicy TEXT[],
-  property INTEGER
+  rules VARCHAR,
+  health VARCHAR,
+  cancelpolicy VARCHAR
 );
+
+CREATE TABLE IF NOT EXISTS properties (
+  propertyid BIGINT PRIMARY KEY,
+  locationid BIGINT,
+  hostid BIGINT,
+  toknowid BIGINT,
+  FOREIGN KEY (locationid) REFERENCES locations(locationsid),
+   FOREIGN KEY (hostid) REFERENCES hosts(hostsid),
+   FOREIGN KEY (toknowid) REFERENCES toknow(toknowsid)
+
+);
+
+
 
 
 

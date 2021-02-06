@@ -14,13 +14,16 @@ client.connect();
 module.exports = {
   getHostInfo(id, cb) {
     const query = {
-      text: 'select * from hosts where property = $1',
+      text: 'select hostname, verified, photo, joindate, hostbio, reviews, contact, response from properties inner join hosts on hostsid = hostid where propertyid = $1',
       values: [id],
     };
     client
       .query(query)
       .then((data) => {
-        cb(data.rows[0]);
+        const splitResponse = data.rows[0].response.split('%');
+        const restructuredResponse = data.rows[0];
+        restructuredResponse.response = splitResponse;
+        cb(null, restructuredResponse);
         console.log('data retrieved successfully');
       })
       .catch((err) => {
@@ -29,13 +32,13 @@ module.exports = {
   },
   getLocationInfo(id, cb) {
     const query = {
-      text: 'select * from locations where property = $1',
+      text: 'select city, citystate, country, locdesc  from properties inner join locations on locationsid = locationid where propertyid = $1',
       values: [id],
     };
     client
       .query(query)
       .then((data) => {
-        cb(data.rows[0]);
+        cb(null, data.rows[0]);
         console.log('data retrieved successfully');
       })
       .catch((err) => {
@@ -44,13 +47,22 @@ module.exports = {
   },
   getKnowInfo(id, cb) {
     const query = {
-      text: 'select * from toknow where property = $1',
+      text: 'select knowname, rules, health, cancelpolicy  from properties inner join toknow on toknowsid = toknowid where propertyid = $1',
       values: [id],
     };
     client
       .query(query)
       .then((data) => {
-        cb(data.rows[0]);
+        const splitRules = data.rows[0].rules.split('%');
+        const stringRules = `${splitRules[0]}, ${splitRules[1]}`;
+        const splitHealth = data.rows[0].health.split('%');
+        const stringHealth = `${splitHealth[0]}, ${splitHealth[1]}`;
+        const restructuredResponse = data.rows[0];
+        restructuredResponse.rules = stringRules;
+        restructuredResponse.health = stringHealth;
+        cb(null, restructuredResponse);
+        console.log('data retrieved successfully');
+        cb(null, data.rows[0]);
         console.log('data retrieved successfully');
       })
       .catch((err) => {
@@ -87,7 +99,20 @@ module.exports = {
 //     client.end();
 //   });
 
-//   const data = `INSERT INTO toknow("knowname", "rules", "health", "cancelpolicy", "property") VALUES('the best place', '{"house": "[no rules]", "additional": "[still no rules]"}', '{"safety": "[poodle]", "acknowledge": "[noodle]"}', array['you can not cancel'], 2)`;
+//   const data = `INSERT INTO toknow("knowname", "rules", "health", "cancelpolicy") VALUES('the best place', '{"house": "[no rules]", "additional": "[still no rules]"}', '{"safety": "[poodle]", "acknowledge": "[noodle]"}', array['you can not cancel'])`;
+// client
+//   .query(data)
+//   .then(() => {
+//     console.log('item inserted successfully');
+//   })
+//   .catch((err) => {
+//     console.error(err);
+//   })
+//   .finally(() => {
+//     client.end();
+//   });
+
+//   const data = `INSERT INTO properties("locationid", "hostid", "toknowid") VALUES(1, 1, 1)`;
 // client
 //   .query(data)
 //   .then(() => {

@@ -7,14 +7,14 @@ import Rules from './Rules.jsx';
 const ToKnowModal = ({ whatToKnow, show, close }) => {
   let title = 'House rules';
   let subTitle = 'Additional rules';
-  let mainShow = <Rules rules={whatToKnow.house} />;
-  let subShow = <Rules rules={whatToKnow.additional} />;
+  let mainShow = <Rules rules={whatToKnow} />;
+  let subShow = <Rules rules={whatToKnow} />;
 
   if (whatToKnow.safety) {
     title = 'Health & safety';
     subTitle = 'You must also acknowledge';
     mainShow = <Health health={whatToKnow.safety} />;
-    subShow = <Health health={whatToKnow.acknowledge} />;
+    subShow = <Health health={whatToKnow.safety} />;
   }
   if (Array.isArray(whatToKnow)) {
     title = 'Cancellation Policy';

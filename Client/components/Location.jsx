@@ -15,13 +15,13 @@ const Location = () => {
         setLocation(data);
       })
       .catch((err) => console.log(err));
-  }, [id]);
+  }, []);
 
   const {
-    city, state, country, desc,
+    city, citystate, country, locdesc,
   } = location;
 
-  const query = `${city}, ${state}, ${country}`;
+  const query = `${city}, ${citystate}, ${country}`;
 
   useEffect(() => {
     if (city) {
@@ -31,8 +31,8 @@ const Location = () => {
   }, [isShown, city]);
 
   let pars = [];
-  if (desc) {
-    pars = desc.split('\n\n').map((par) => par.split(':'));
+  if (locdesc) {
+    pars = locdesc.split('\n\n').map((par) => par.split(':'));
   }
 
   return (
@@ -52,10 +52,10 @@ const Location = () => {
       {city && (
       <div>
         <div className='loc-title'>
-          <h6>{`${city}, ${state}, ${country}`}</h6>
+          <h6>{`${city}, ${citystate}, ${country}`}</h6>
         </div>
         <div id='desc-prev'>
-          {desc.split(' ').slice(0, 40).join(' ')}
+          {locdesc.split(' ').slice(0, 40).join(' ')}
           ...
         </div>
       </div>
@@ -77,7 +77,7 @@ const Location = () => {
               <div>
                 <h1>Location</h1>
                 <div className='loc-title '>
-                  <h6>{`${city}, ${state}, ${country}`}</h6>
+                  <h6>{`${city}, ${citystate}, ${country}`}</h6>
                 </div>
                 <div>
                   <div id='loc-desc'>

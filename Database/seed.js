@@ -182,7 +182,7 @@ const otherToKnows = ['Jabroni, it\'s the Rock cave', 'Cabin near seattle, the g
 
 const toKnow = [
   {
-    name: 'Hollywood lifeStyle of luxury! Manion for a star',
+    name: 'Hollywood lifeStyle of luxury! Mansion for a star',
     rules: {
       house: ['Self check-in with lockbox', 'Not suitable for children and infants', 'No pets', 'No smoking', 'Only 4 visitors'],
       additional: ['No Film Productions Without Permission', 'No jumping off the balcony into the pool', 'No loud music after 2:00 AM'],
