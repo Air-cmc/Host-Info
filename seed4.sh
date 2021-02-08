@@ -21,4 +21,6 @@ node generator4.js --output=$FILEPATH --lines=$LINES
 
 ### Import Our posts.csv file to seed Database ###
 psql $USER -d $DATABASE -c "COPY $TABLE FROM '$FILEPATH' CSV HEADER";
+psql $USER -d $DATABASE -c "CREATE INDEX idx_properties_locationid
+ON properties(locationid)";
 
