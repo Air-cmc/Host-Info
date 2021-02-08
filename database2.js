@@ -12,27 +12,42 @@ const client = new Client({
 client.connect();
 
 module.exports = {
-  getHostInfo(id, cb) {
-    const query = {
-      text: 'select hostname, verified, photo, joindate, hostbio, reviews, contact, response from properties inner join hosts on hostsid = hostid where propertyid = $1',
-      values: [id],
-    };
-    client
-      .query(query)
-      .then((data) => {
-        const splitResponse = data.rows[0].response.split('%');
-        const restructuredResponse = data.rows[0];
-        restructuredResponse.response = splitResponse;
-        cb(null, restructuredResponse);
-        console.log('data retrieved successfully');
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+  // select hostname, verified, photo, joindate, hostbio, reviews, contact, response from properties inner join hosts on hostsid = hostid where propertyid = $1
+  /*    return new Promise ((resolve, reject) => {
+      var queryString = 'select * from messages';
+
+      db.query(queryString, (err, messages) => {
+        if (err) {
+          reject(err);
+        } else {
+          console.log(messages[0]);
+          resolve(messages);
+        } */
+
+  getHostInfo(id) {
+    return new Promise((resolve, reject) => {
+      const query = {
+        text: 'select * from hosts where hostsid = $1',
+        values: [id],
+      };
+      client
+        .query(query)
+        .then((data) => {
+          const splitResponse = data.rows[0].response.split('%');
+          const restructuredResponse = data.rows[0];
+          restructuredResponse.response = splitResponse;
+          resolve(restructuredResponse);
+          console.log('data retrieved successfully');
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
   },
   getLocationInfo(id, cb) {
+    // select city, citystate, country, locdesc  from properties inner join locations on locationsid = locationid where propertyid = $1
     const query = {
-      text: 'select city, citystate, country, locdesc  from properties inner join locations on locationsid = locationid where propertyid = $1',
+      text: 'select * from locations where locationsid = $1',
       values: [id],
     };
     client
@@ -46,8 +61,9 @@ module.exports = {
       });
   },
   getKnowInfo(id, cb) {
+    // select knowname, rules, health, cancelpolicy  from properties inner join toknow on toknowsid = toknowid where propertyid = $1
     const query = {
-      text: 'select knowname, rules, health, cancelpolicy  from properties inner join toknow on toknowsid = toknowid where propertyid = $1',
+      text: 'select * from toknow where toknowsid = $1',
       values: [id],
     };
     client

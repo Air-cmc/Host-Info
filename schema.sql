@@ -9,7 +9,7 @@ CREATE DATABASE hostinfo;
 
 
 CREATE TABLE IF NOT EXISTS hosts (
-  hostsid BIGINT PRIMARY KEY,
+  hostsid INTEGER PRIMARY KEY,
   hostname VARCHAR,
   verified BOOLEAN,
   photo VARCHAR,
@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS hosts (
 
 
 CREATE TABLE IF NOT EXISTS locations (
-  locationsid BIGINT PRIMARY KEY,
+  locationsid INTEGER PRIMARY KEY,
   city VARCHAR,
   citystate VARCHAR,
   country VARCHAR,
@@ -31,23 +31,23 @@ CREATE TABLE IF NOT EXISTS locations (
 );
 
 CREATE TABLE IF NOT EXISTS toknow (
-  toknowsid BIGINT PRIMARY KEY,
+  toknowsid INTEGER PRIMARY KEY,
   knowname VARCHAR,
   rules VARCHAR,
   health VARCHAR,
   cancelpolicy VARCHAR
 );
 
-CREATE TABLE IF NOT EXISTS properties (
-  propertyid BIGINT PRIMARY KEY,
-  locationid BIGINT,
-  hostid BIGINT,
-  toknowid BIGINT,
-  FOREIGN KEY (locationid) REFERENCES locations(locationsid),
-   FOREIGN KEY (hostid) REFERENCES hosts(hostsid),
-   FOREIGN KEY (toknowid) REFERENCES toknow(toknowsid)
+-- CREATE TABLE IF NOT EXISTS properties (
+--   propertyid INTEGER PRIMARY KEY,
+--   locationid INTEGER,
+--   hostid INTEGER,
+--   toknowid INTEGER,
+--   FOREIGN KEY (locationid) REFERENCES locations(locationsid),
+--    FOREIGN KEY (hostid) REFERENCES hosts(hostsid),
+--    FOREIGN KEY (toknowid) REFERENCES toknow(toknowsid)
 
-);
+-- );
 
 
 
